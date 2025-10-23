@@ -574,7 +574,7 @@ body.site-sidebar-open {
 
 .access-map {
   margin-top: var(--space-md);
-  display: grid;gall
+  display: grid;
   gap: var(--space-sm);
   background: var(--bg-info);
   padding: 20px;
