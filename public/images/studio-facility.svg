@@ -1,0 +1,26 @@
+<svg width="960" height="640" viewBox="0 0 960 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="facilityBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141e30"/>
+      <stop offset="100%" stop-color="#243b55"/>
+    </linearGradient>
+    <linearGradient id="facilityAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#0ea89b"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="640" rx="40" fill="url(#facilityBg)"/>
+  <g opacity="0.35">
+    <circle cx="180" cy="160" r="110" fill="#0ea89b"/>
+    <circle cx="780" cy="520" r="140" fill="#38bdf8"/>
+  </g>
+  <rect x="120" y="220" width="320" height="220" rx="26" fill="url(#facilityAccent)" opacity="0.85"/>
+  <rect x="480" y="200" width="360" height="36" rx="18" fill="#14b8a6" opacity="0.4"/>
+  <rect x="480" y="260" width="320" height="36" rx="18" fill="#14b8a6" opacity="0.35"/>
+  <rect x="480" y="320" width="280" height="32" rx="16" fill="#14b8a6" opacity="0.32"/>
+  <rect x="480" y="380" width="200" height="30" rx="15" fill="#14b8a6" opacity="0.3"/>
+  <rect x="480" y="440" width="240" height="20" rx="10" fill="#14b8a6" opacity="0.26"/>
+  <text x="50%" y="86%" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="30" font-family="Inter,'Helvetica Neue',Arial,sans-serif" font-weight="600" letter-spacing="0.08em">
+    FACILITY MOCK
+  </text>
+</svg>

@@ -1,0 +1,25 @@
+<svg width="960" height="640" viewBox="0 0 960 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3f4f6"/>
+      <stop offset="50%" stop-color="#e5e7eb"/>
+      <stop offset="100%" stop-color="#cbd5f5"/>
+    </linearGradient>
+    <pattern id="dots" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2" fill="#d1d5db" opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="640" fill="url(#gradient)"/>
+  <rect width="960" height="640" fill="url(#dots)"/>
+  <g fill="#1d4ed8" opacity="0.25">
+    <circle cx="780" cy="160" r="120"/>
+    <circle cx="220" cy="520" r="140"/>
+  </g>
+  <rect x="220" y="190" width="520" height="320" rx="28" fill="#ffffff" stroke="#d1d5db" stroke-width="2"/>
+  <rect x="260" y="230" width="440" height="140" rx="16" fill="#e0e7ff"/>
+  <rect x="260" y="400" width="200" height="32" rx="16" fill="#c7d2fe"/>
+  <rect x="480" y="400" width="120" height="32" rx="16" fill="#cbd5f5"/>
+  <text x="50%" y="80%" text-anchor="middle" fill="#6b7280" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="32">
+    Eyecatch Mockup
+  </text>
+</svg>
