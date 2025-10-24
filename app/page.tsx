@@ -46,6 +46,7 @@ interface SectionContent {
 
 const closureNotice = "【お知らせ】4月29日（月）は終日休館いたします。";
 const heroTagline = "横浜市補助事業";
+const instagramUrl = "https://www.instagram.com/hanairo_aoba?igsh=MTJncnh4enFsd2VyZA==";
 
 const photoGalleryPhotos: PhotoItem[] = [
   {
@@ -611,6 +612,7 @@ export default function HomePage() {
           subtitle="ひろばで開催したイベントや日常の様子をご紹介します"
           activities={activities}
           itemsPerPage={3}
+          instagramUrl={instagramUrl}
         />
 
         <HirobaIntroductionSection {...hirobaIntroduction} />

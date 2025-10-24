@@ -262,7 +262,9 @@ export function FacilityInfoSection({
                   {access.nearestStations.map((station, index) => (
                     <div key={index} className="access-station-item">
                       <div className="access-station-name">{station.name}</div>
-                      <div className="access-station-time">{station.walkingTime}</div>
+                      <div className="access-station-time">
+                        {station.walkingTime}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -270,22 +272,24 @@ export function FacilityInfoSection({
             )}
 
             {/* 駐車場・駐輪場情報 */}
-            {(access.parking || access.bicycleParking !== undefined || access.strollerParking !== undefined) && (
+            {(access.parking ||
+              access.bicycleParking !== undefined ||
+              access.strollerParking !== undefined) && (
               <div className="access-section">
                 <div className="access-section-title">駐車場・駐輪場</div>
                 <div className="access-facilities-row">
                   {access.parking && (
                     <>
                       <div className="access-facility-item">
-                        <span className="access-facility-label">駐車場</span>
-                        <span className={`access-facility-status access-facility-status--${access.parking.onsite ? "available" : "unavailable"}`}>
-                          {access.parking.onsite ? "○" : "×"}
+                        <span className="access-facility-label">
+                          専有駐車場
                         </span>
-                      </div>
-                      <div className="access-facility-item">
-                        <span className="access-facility-label">近隣駐車場</span>
-                        <span className={`access-facility-status access-facility-status--${access.parking.nearby ? "available" : "unavailable"}`}>
-                          {access.parking.nearby ? "○" : "×"}
+                        <span
+                          className={`access-facility-status access-facility-status--${
+                            access.parking.onsite ? "available" : "unavailable"
+                          }`}
+                        >
+                          {access.parking.onsite ? "○" : "×"}
                         </span>
                       </div>
                     </>
@@ -293,15 +297,25 @@ export function FacilityInfoSection({
                   {access.bicycleParking !== undefined && (
                     <div className="access-facility-item">
                       <span className="access-facility-label">駐輪場</span>
-                      <span className={`access-facility-status access-facility-status--${access.bicycleParking ? "available" : "unavailable"}`}>
+                      <span
+                        className={`access-facility-status access-facility-status--${
+                          access.bicycleParking ? "available" : "unavailable"
+                        }`}
+                      >
                         {access.bicycleParking ? "○" : "×"}
                       </span>
                     </div>
                   )}
                   {access.strollerParking !== undefined && (
                     <div className="access-facility-item">
-                      <span className="access-facility-label">ベビーカー置場</span>
-                      <span className={`access-facility-status access-facility-status--${access.strollerParking ? "available" : "unavailable"}`}>
+                      <span className="access-facility-label">
+                        ベビーカー置場
+                      </span>
+                      <span
+                        className={`access-facility-status access-facility-status--${
+                          access.strollerParking ? "available" : "unavailable"
+                        }`}
+                      >
                         {access.strollerParking ? "○" : "×"}
                       </span>
                     </div>
