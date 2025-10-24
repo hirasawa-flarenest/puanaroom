@@ -18,6 +18,8 @@ export interface FacilityInfoSectionProps {
       onsite: boolean;
       nearby: boolean;
     };
+    bicycleParking?: boolean;
+    strollerParking?: boolean;
     googleMapUrl?: string;
     googleMapsAppUrl?: string;
   };
@@ -217,58 +219,14 @@ export function FacilityInfoSection({
         {access && (
           <div className="hiroba-introduction__access">
             <h3 className="hiroba-introduction__subtitle">アクセス</h3>
-            <p className="hiroba-introduction__address">{access.address}</p>
 
-            <div className="hiroba-introduction__access-grid">
-              {access.nearestStations &&
-                access.nearestStations.map((station, index) => (
-                  <div key={index} className="hiroba-introduction__access-card">
-                    <div className="hiroba-introduction__access-card-label">
-                      {station.name}
-                    </div>
-                    <div className="hiroba-introduction__access-card-value">
-                      {station.walkingTime}
-                    </div>
-                  </div>
-                ))}
-
-              {access.parking && (
-                <>
-                  <div className="hiroba-introduction__access-card">
-                    <div className="hiroba-introduction__access-card-label">
-                      駐車場
-                    </div>
-                    <div
-                      className={`hiroba-introduction__access-card-value hiroba-introduction__access-card-value--${
-                        access.parking.onsite ? "available" : "unavailable"
-                      }`}
-                    >
-                      <span className="hiroba-introduction__access-icon">
-                        {access.parking.onsite ? "○" : "×"}
-                      </span>
-                      {access.parking.onsite ? "あり" : "なし"}
-                    </div>
-                  </div>
-
-                  <div className="hiroba-introduction__access-card">
-                    <div className="hiroba-introduction__access-card-label">
-                      近隣駐車場
-                    </div>
-                    <div
-                      className={`hiroba-introduction__access-card-value hiroba-introduction__access-card-value--${
-                        access.parking.nearby ? "available" : "unavailable"
-                      }`}
-                    >
-                      <span className="hiroba-introduction__access-icon">
-                        {access.parking.nearby ? "○" : "×"}
-                      </span>
-                      {access.parking.nearby ? "あり" : "なし"}
-                    </div>
-                  </div>
-                </>
-              )}
+            {/* 住所 */}
+            <div className="access-address-box">
+              <div className="access-address-label">住所</div>
+              <div className="access-address-value">{access.address}</div>
             </div>
 
+            {/* 地図 */}
             {access.googleMapUrl && (
               <div className="hiroba-introduction__map-container">
                 {access.googleMapsAppUrl && (
@@ -292,6 +250,62 @@ export function FacilityInfoSection({
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Google Map"
                   />
+                </div>
+              </div>
+            )}
+
+            {/* 交通手段 */}
+            {access.nearestStations && (
+              <div className="access-section">
+                <div className="access-section-title">交通手段</div>
+                <div className="access-stations-grid">
+                  {access.nearestStations.map((station, index) => (
+                    <div key={index} className="access-station-item">
+                      <div className="access-station-name">{station.name}</div>
+                      <div className="access-station-time">{station.walkingTime}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 駐車場・駐輪場情報 */}
+            {(access.parking || access.bicycleParking !== undefined || access.strollerParking !== undefined) && (
+              <div className="access-section">
+                <div className="access-section-title">駐車場・駐輪場</div>
+                <div className="access-facilities-row">
+                  {access.parking && (
+                    <>
+                      <div className="access-facility-item">
+                        <span className="access-facility-label">駐車場</span>
+                        <span className={`access-facility-status access-facility-status--${access.parking.onsite ? "available" : "unavailable"}`}>
+                          {access.parking.onsite ? "○" : "×"}
+                        </span>
+                      </div>
+                      <div className="access-facility-item">
+                        <span className="access-facility-label">近隣駐車場</span>
+                        <span className={`access-facility-status access-facility-status--${access.parking.nearby ? "available" : "unavailable"}`}>
+                          {access.parking.nearby ? "○" : "×"}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                  {access.bicycleParking !== undefined && (
+                    <div className="access-facility-item">
+                      <span className="access-facility-label">駐輪場</span>
+                      <span className={`access-facility-status access-facility-status--${access.bicycleParking ? "available" : "unavailable"}`}>
+                        {access.bicycleParking ? "○" : "×"}
+                      </span>
+                    </div>
+                  )}
+                  {access.strollerParking !== undefined && (
+                    <div className="access-facility-item">
+                      <span className="access-facility-label">ベビーカー置場</span>
+                      <span className={`access-facility-status access-facility-status--${access.strollerParking ? "available" : "unavailable"}`}>
+                        {access.strollerParking ? "○" : "×"}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

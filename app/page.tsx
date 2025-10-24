@@ -223,7 +223,7 @@ const faqs: FAQ[] = [
     id: "faq-003",
     question: "何歳から利用できますか？",
     answer:
-      "0歳から6歳までのお子さまとその保護者の方がご利用いただけます。また、妊娠中の方もご利用いただけます。",
+      "0歳から3歳の未就園児のお子さまと保護者の方がご利用いただけます。また、妊娠中の方もご利用いただけます。",
     category: "usage",
     order: 3,
   },
@@ -290,8 +290,8 @@ const contactMethods: ContactMethod[] = [
     type: "phone",
     title: "お電話でのお問い合わせ",
     description: "お気軽にお電話ください。スタッフが丁寧に対応いたします。",
-    link: "tel:0455551234",
-    linkText: "045-555-1234",
+    link: "tel:09065103126",
+    linkText: "090-6510-3126",
     hours: "受付時間：平日 10:00〜16:00、土曜 10:00〜15:00",
   },
   {
@@ -307,19 +307,20 @@ const contactMethods: ContactMethod[] = [
 
 const companyInfo = {
   title: "運営会社",
-  subtitle: "子育てひろば はないろの運営会社についてご紹介します",
-  companyName: "株式会社 ぷあなるーむ",
+  subtitle: "おやこの広場 はないろの運営会社についてご紹介します",
+  companyName: "株式会社Puana",
   description:
-    "私たちは、地域の子育て支援を通じて、誰もが安心して子育てできる社会づくりを目指しています。子育てひろば はないろは、地域に根ざした温かい交流の場として、スタッフ一同心を込めて運営しております。",
-  postalCode: "〒226-0003",
-  address: "神奈川県横浜市緑区東本郷6－8－7　1階",
+    "私たちは、地域の子育て支援を通じて、誰もが安心して子育てできる社会づくりを目指しています。おやこの広場 はないろは、地域に根ざした温かい交流の場として、スタッフ一同心を込めて運営しております。",
+  postalCode: "〒227-0033",
+  address: "横浜市青葉区市ヶ尾町436-1エスポアール市ヶ尾103",
   establishedYear: "2018年4月",
-  phoneNumber: "0455551234",
-  phoneNumberDisplay: "045-555-1234",
-  businessHours: "平日 10:00〜16:00、土曜 10:00〜15:00",
+  phoneNumber: "09065103126",
+  phoneNumberDisplay: "090-6510-3126",
+  businessHours: "平日 月〜金 9:30〜16:00",
   accessInfo: [
-    { station: "JR横浜線 鴨居駅", walkingTime: "徒歩15分" },
-    { station: "バス停 東本郷", walkingTime: "徒歩3分" },
+    { station: "市ヶ尾駅", walkingTime: "徒歩17分" },
+    { station: "市営【下根】バス停", walkingTime: "徒歩3分" },
+    { station: "東急【東市が尾小学校前】バス停", walkingTime: "徒歩6分" },
   ],
 };
 
@@ -327,7 +328,7 @@ const hirobaIntroduction: HirobaIntroductionProps = {
   concept: {
     title: "ひろば紹介",
     description:
-      "子育てひろば はないろは、地域の親子がほっと一息つける第2のリビングのような場所です。乳幼児と保護者の方が気軽に集い、学び、つながれる温かい交流スペースとして、安心安全を最優先に運営しています。",
+      "おやこの広場 はないろは、0歳から3歳の未就園児のお子さまと保護者の方が気軽に集い、交流やイベントを行う常設型の広場です。子育て情報を入手したり、子育て相談ができる場所として、スタッフ一同心を込めて運営しています。",
   },
   staff: [
     {
@@ -381,41 +382,39 @@ const hirobaIntroduction: HirobaIntroductionProps = {
       label: "キッチン",
     },
   ],
-  mapImage: "/images/まっぷ.jpg",
+  mapImage: "/images/S__23543813.jpg",
 };
 
 const facilityInfo: FacilityInfoSectionProps = {
   title: "ご利用案内",
   subtitle: "ご利用方法や料金についてご案内します",
-  targetUsers: [
-    "0〜6歳のお子さまとその保護者",
-    "妊娠中の方",
-    "地域で子育てを応援する方",
-  ],
+  targetUsers: ["0歳から3歳の未就園児のお子さまと保護者の方", "妊娠中の方"],
   businessHours: {
     weekdays: "10:00〜16:00",
     weekends: "10:00〜15:00",
     holidays: "日曜日・祝日・年末年始",
   },
   access: {
-    address: "神奈川県横浜市緑区東本郷6－8－7　1階",
+    address: "横浜市青葉区市ヶ尾町436-1エスポアール市ヶ尾103",
     nearestStations: [
-      { name: "JR横浜線 鴨居駅", walkingTime: "徒歩15分" },
-      { name: "バス停 東本郷", walkingTime: "徒歩3分" },
+      { name: "市ヶ尾駅", walkingTime: "徒歩17分" },
+      { name: "市営【下根】バス停", walkingTime: "徒歩3分" },
+      { name: "東急【東市が尾小学校前】バス停", walkingTime: "徒歩6分" },
     ],
     parking: {
       onsite: false,
-      nearby: true,
+      nearby: false,
     },
+    bicycleParking: true,
+    strollerParking: true,
     googleMapUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.8765432109876!2d139.54321098765432!3d35.51234567890123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDMwJzQ0LjQiTiAxMznCsDMyJzM1LjYiRQ!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp",
+      "https://maps.google.com/maps?q=35.5619458,139.5448289&hl=ja&z=16&output=embed",
     googleMapsAppUrl:
-      "https://www.google.com/maps/search/?api=1&query=神奈川県横浜市緑区東本郷6-8-7",
+      "https://www.google.com/maps/search/?api=1&query=35.5619458,139.5448289",
   },
   openingHours: {
-    weekdays: "10:00〜16:00",
-    saturday: "10:00〜15:00",
-    holidays: "日曜日・祝日・年末年始",
+    weekdays: "月〜金 9:30〜16:00",
+    holidays: "土曜日・日曜日・祝日・年末年始",
   },
   pricing: {
     membershipFee: {
@@ -552,14 +551,14 @@ export default function HomePage() {
             />
             <div className="site-header__brand-text">
               <span className="site-header__brand-title">
-                子育てひろば はないろ
+                おやこの広場　はないろ
               </span>
               <span className="site-header__brand-sub">
                 地域の親子が集う交流スペース
               </span>
             </div>
           </div>
-          <SiteNavigation items={navigationItems} />
+          <SiteNavigation items={navigationItems} notice={closureNotice} />
         </div>
         <div className="site-header__notice">{closureNotice}</div>
       </header>
@@ -580,18 +579,18 @@ export default function HomePage() {
           <div className="wireframe-hero__content">
             <span className="wireframe-hero__tag">{heroTagline}</span>
             <h1 id="hero-title" className="wireframe-hero__title">
-              子育てひろば はないろ
+              おやこの広場　はないろ
             </h1>
             <p className="wireframe-hero__lead">
-              乳幼児と保護者が、気軽に集い、学び、つながれる地域の交流スペースです。
-              まずはワイヤーフレームとして、掲載予定の情報を整理しています。
+              0歳から3歳の未就園児のお子さまと保護者の方が気軽に集い、交流やイベントを行う常設型の広場です。
+              子育て情報を入手したり、子育て相談ができる場所です。
             </p>
             <div className="wireframe-actions" aria-label="主な導線">
               <Link className="wireframe-actions__item" href="#guide">
                 ご利用案内
               </Link>
               <Link className="wireframe-actions__item" href="#news">
-                月間スケジュール
+                月間予定
               </Link>
               <Link className="wireframe-actions__item" href="#announcements">
                 お知らせ
@@ -680,7 +679,7 @@ export default function HomePage() {
             />
             <div>
               <div className="site-footer__brand-name">
-                子育てひろば はないろ
+                おやこの広場　はないろ
               </div>
               <p className="site-footer__brand-description">
                 地域の親子が集う温かい交流スペース
@@ -731,23 +730,23 @@ export default function HomePage() {
           <div className="site-footer__info">
             <div className="site-footer__info-item">
               <div className="site-footer__info-label">住所</div>
-              <div>神奈川県横浜市緑区東本郷6－8－7 1階</div>
+              <div>横浜市青葉区市ヶ尾町436-1エスポアール市ヶ尾103</div>
             </div>
             <div className="site-footer__info-item">
               <div className="site-footer__info-label">電話</div>
               <div>
-                <a href="tel:0455551234">045-555-1234</a>
+                <a href="tel:09065103126">090-6510-3126</a>
               </div>
             </div>
             <div className="site-footer__info-item">
               <div className="site-footer__info-label">営業時間</div>
-              <div>平日 10:00〜16:00、土曜 10:00〜15:00</div>
+              <div>平日 月〜金 9:30〜16:00</div>
             </div>
           </div>
 
           <div className="site-footer__bottom">
             <p className="site-footer__copyright">
-              © 2024 子育てひろば はないろ All rights reserved.
+              © 2024 おやこの広場　はないろ All rights reserved.
             </p>
           </div>
         </div>
@@ -755,7 +754,7 @@ export default function HomePage() {
 
       {/* Instagram固定リンク */}
       <a
-        href="https://www.instagram.com/puanaroom/"
+        href="https://www.instagram.com/hanairo_aoba?igsh=MTJncnh4enFsd2VyZA=="
         target="_blank"
         rel="noopener noreferrer"
         className="instagram-fixed-link"

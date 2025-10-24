@@ -10,9 +10,10 @@ export interface NavigationItem {
 
 interface SiteNavigationProps {
   items: NavigationItem[];
+  notice?: string;
 }
 
-export function SiteNavigation({ items }: SiteNavigationProps) {
+export function SiteNavigation({ items, notice }: SiteNavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const close = useCallback(() => {
@@ -67,7 +68,10 @@ export function SiteNavigation({ items }: SiteNavigationProps) {
       >
         <div className="site-sidebar__inner">
           <div className="site-sidebar__header">
-            <h2 className="site-sidebar__title">子育てひろば はないろ</h2>
+            <h2 className="site-sidebar__title">おやこの広場　はないろ</h2>
+            {notice && (
+              <div className="site-sidebar__notice">{notice}</div>
+            )}
           </div>
           <nav className="site-sidebar__nav" aria-label="主要メニュー">
             <ul className="site-sidebar__list">
