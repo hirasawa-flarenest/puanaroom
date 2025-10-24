@@ -1353,6 +1353,85 @@ body.site-sidebar-open {
   flex-shrink: 0;
 }
 
+/* Instagram Feed Section */
+.instagram-feed-section {
+  background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+}
+
+.instagram-feed-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .instagram-feed-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .instagram-feed-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.instagram-feed-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.instagram-feed-item .instagram-media {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.instagram-feed-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-xl);
+  margin-top: var(--space-lg);
+  border-top: 2px solid rgba(245, 163, 192, 0.1);
+}
+
+.instagram-feed-more-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(188, 24, 136, 0.3);
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .instagram-feed-more-button {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+}
+
+.instagram-feed-more-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(188, 24, 136, 0.4);
+  text-decoration: none;
+}
+
+.instagram-feed-more-button svg {
+  flex-shrink: 0;
+}
+
 /* Facility Info Section */
 .facility-info-section {
   display: flex;

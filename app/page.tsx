@@ -36,6 +36,10 @@ import {
   FacilityInfoSection,
   type FacilityInfoSectionProps,
 } from "./_components/facility-info-section";
+import {
+  InstagramFeedSection,
+  type InstagramPost,
+} from "./_components/instagram-feed-section";
 
 interface SectionContent {
   id: string;
@@ -47,6 +51,28 @@ interface SectionContent {
 const closureNotice = "【お知らせ】4月29日（月）は終日休館いたします。";
 const heroTagline = "横浜市補助事業";
 const instagramUrl = "https://www.instagram.com/hanairo_aoba?igsh=MTJncnh4enFsd2VyZA==";
+
+// Instagram投稿URL（実際の投稿URLに置き換えてください）
+const instagramPosts: InstagramPost[] = [
+  {
+    url: "https://www.instagram.com/p/EXAMPLE1/",
+  },
+  {
+    url: "https://www.instagram.com/p/EXAMPLE2/",
+  },
+  {
+    url: "https://www.instagram.com/p/EXAMPLE3/",
+  },
+  {
+    url: "https://www.instagram.com/p/EXAMPLE4/",
+  },
+  {
+    url: "https://www.instagram.com/p/EXAMPLE5/",
+  },
+  {
+    url: "https://www.instagram.com/p/EXAMPLE6/",
+  },
+];
 
 const photoGalleryPhotos: PhotoItem[] = [
   {
@@ -612,6 +638,13 @@ export default function HomePage() {
           subtitle="ひろばで開催したイベントや日常の様子をご紹介します"
           activities={activities}
           itemsPerPage={3}
+          instagramUrl={instagramUrl}
+        />
+
+        <InstagramFeedSection
+          title="Instagram"
+          subtitle="日々の様子をInstagramで発信しています"
+          posts={instagramPosts}
           instagramUrl={instagramUrl}
         />
 
