@@ -45,7 +45,7 @@ interface SectionContent {
 }
 
 const closureNotice = "【お知らせ】4月29日（月）は終日休館いたします。";
-const heroTagline = "COMMUNITY SPACE";
+const heroTagline = "横浜市補助事業";
 
 const photoGalleryPhotos: PhotoItem[] = [
   {
