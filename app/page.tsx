@@ -52,25 +52,37 @@ const closureNotice = "【お知らせ】4月29日（月）は終日休館いた
 const heroTagline = "横浜市補助事業";
 const instagramUrl = "https://www.instagram.com/hanairo_aoba?igsh=MTJncnh4enFsd2VyZA==";
 
-// Instagram投稿URL（実際の投稿URLに置き換えてください）
+// Instagram投稿データ（実際の投稿URL・画像URLに置き換えてください）
 const instagramPosts: InstagramPost[] = [
   {
     url: "https://www.instagram.com/p/EXAMPLE1/",
+    imageUrl: "/images/gallery/LINE_ALBUM_ホームページ用写真_251015_1.jpg",
+    alt: "Instagram投稿1",
   },
   {
     url: "https://www.instagram.com/p/EXAMPLE2/",
+    imageUrl: "/images/gallery/LINE_ALBUM_ホームページ用写真_251015_2.jpg",
+    alt: "Instagram投稿2",
   },
   {
     url: "https://www.instagram.com/p/EXAMPLE3/",
+    imageUrl: "/images/gallery/LINE_ALBUM_ホームページ用写真_251015_5.jpg",
+    alt: "Instagram投稿3",
   },
   {
     url: "https://www.instagram.com/p/EXAMPLE4/",
+    imageUrl: "/images/gallery/LINE_ALBUM_ホームページ用写真_251015_6.jpg",
+    alt: "Instagram投稿4",
   },
   {
     url: "https://www.instagram.com/p/EXAMPLE5/",
+    imageUrl: "/images/gallery/LINE_ALBUM_ホームページ用写真_251015_9.jpg",
+    alt: "Instagram投稿5",
   },
   {
     url: "https://www.instagram.com/p/EXAMPLE6/",
+    imageUrl: "/images/gallery/LINE_ALBUM_ホームページ用写真_251015_11.jpg",
+    alt: "Instagram投稿6",
   },
 ];
 
