@@ -1,14 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ContentCard } from "./content-card";
-
-export interface Activity {
-  date: string;
-  title: string;
-  description: string;
-  image?: string;
-}
+import { Modal } from "./modal";
+import type { Activity } from "@/lib/types";
+import { usePageableContent, useSlideAnimation } from "@/lib/hooks";
 
 export interface ActivitiesSectionProps {
   title: string;
@@ -25,32 +21,36 @@ export function ActivitiesSection({
   itemsPerPage = 3,
   instagramUrl
 }: ActivitiesSectionProps) {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [direction, setDirection] = useState<"left" | "right" | null>(null);
-  const totalPages = Math.ceil(activities.length / itemsPerPage);
-  const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const displayedActivities = activities.slice(startIndex, endIndex);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
+    null
+  );
 
-  useEffect(() => {
-    if (direction) {
-      const timer = setTimeout(() => setDirection(null), 400);
-      return () => clearTimeout(timer);
-    }
-  }, [direction]);
+  const {
+    currentPage,
+    totalPages,
+    displayedItems: displayedActivities,
+    goToNextPage: handleNextPage,
+    goToPrevPage: handlePrevPage,
+  } = usePageableContent({ items: activities, itemsPerPage });
+
+  const { direction, slideLeft, slideRight } = useSlideAnimation();
 
   const goToNextPage = () => {
-    if (currentPage < totalPages - 1) {
-      setDirection("left");
-      setCurrentPage(currentPage + 1);
-    }
+    slideLeft();
+    handleNextPage();
   };
 
   const goToPrevPage = () => {
-    if (currentPage > 0) {
-      setDirection("right");
-      setCurrentPage(currentPage - 1);
-    }
+    slideRight();
+    handlePrevPage();
+  };
+
+  const handleCardClick = (activity: Activity) => {
+    setSelectedActivity(activity);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedActivity(null);
   };
 
   return (
@@ -72,12 +72,13 @@ export function ActivitiesSection({
         >
           {displayedActivities.map((activity, index) => (
             <ContentCard
-              key={startIndex + index}
+              key={`${currentPage}-${index}`}
               image={activity.image}
               imageAlt={activity.title}
               date={activity.date}
               title={activity.title}
               description={activity.description}
+              onClick={() => handleCardClick(activity)}
             />
           ))}
         </div>
@@ -133,6 +134,22 @@ export function ActivitiesSection({
           </div>
         )}
       </div>
+
+      {selectedActivity && (
+        <Modal
+          isOpen={!!selectedActivity}
+          onClose={handleCloseModal}
+          title={selectedActivity.title}
+          date={selectedActivity.date}
+          image={{
+            url: selectedActivity.image,
+            alt: selectedActivity.title,
+            width: 800,
+            height: 600,
+          }}
+          content={selectedActivity.content || selectedActivity.description}
+        />
+      )}
     </section>
   );
 }

@@ -1,24 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-// microCMSで管理することを想定したデータ型定義
-export interface FAQ {
-  id: string; // microCMSのコンテンツID
-  question: string;
-  answer: string;
-  category?: FAQCategory;
-  order?: number; // 表示順
-  publishedAt?: string; // 公開日時（microCMSが自動付与）
-  revisedAt?: string; // 更新日時（microCMSが自動付与）
-}
-
-export type FAQCategory =
-  | "usage" // 利用について
-  | "facility" // 施設について
-  | "event" // イベントについて
-  | "reservation" // 予約について
-  | "other"; // その他
+import type { FAQ, FAQCategory } from "@/lib/types";
 
 export interface FAQSectionProps {
   id?: string;

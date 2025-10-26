@@ -1,17 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ContentCard } from "./content-card";
-
-export type AnnouncementCategory = "closure" | "event" | "notice" | "other";
-
-export interface Announcement {
-  date: string;
-  title: string;
-  description: string;
-  category: AnnouncementCategory;
-  image?: string;
-}
+import { Modal } from "./modal";
+import type { Announcement, AnnouncementCategory } from "@/lib/types";
+import { usePageableContent, useSlideAnimation } from "@/lib/hooks";
 
 export interface AnnouncementsSectionProps {
   id?: string;
@@ -42,32 +35,35 @@ export function AnnouncementsSection({
   announcements,
   itemsPerPage = 3,
 }: AnnouncementsSectionProps) {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [direction, setDirection] = useState<"left" | "right" | null>(null);
-  const totalPages = Math.ceil(announcements.length / itemsPerPage);
-  const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const displayedAnnouncements = announcements.slice(startIndex, endIndex);
+  const [selectedAnnouncement, setSelectedAnnouncement] =
+    useState<Announcement | null>(null);
 
-  useEffect(() => {
-    if (direction) {
-      const timer = setTimeout(() => setDirection(null), 400);
-      return () => clearTimeout(timer);
-    }
-  }, [direction]);
+  const {
+    currentPage,
+    totalPages,
+    displayedItems: displayedAnnouncements,
+    goToNextPage: handleNextPage,
+    goToPrevPage: handlePrevPage,
+  } = usePageableContent({ items: announcements, itemsPerPage });
+
+  const { direction, slideLeft, slideRight } = useSlideAnimation();
 
   const goToNextPage = () => {
-    if (currentPage < totalPages - 1) {
-      setDirection("left");
-      setCurrentPage(currentPage + 1);
-    }
+    slideLeft();
+    handleNextPage();
   };
 
   const goToPrevPage = () => {
-    if (currentPage > 0) {
-      setDirection("right");
-      setCurrentPage(currentPage - 1);
-    }
+    slideRight();
+    handlePrevPage();
+  };
+
+  const handleCardClick = (announcement: Announcement) => {
+    setSelectedAnnouncement(announcement);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedAnnouncement(null);
   };
 
   return (
@@ -89,9 +85,8 @@ export function AnnouncementsSection({
         >
           {displayedAnnouncements.map((announcement, index) => (
             <ContentCard
-              key={startIndex + index}
-              image={announcement.image}
-              imageAlt={announcement.title}
+              key={`${currentPage}-${index}`}
+              description={announcement.description}
               date={announcement.date}
               title={announcement.title}
               badge={
@@ -103,6 +98,7 @@ export function AnnouncementsSection({
                   {categoryLabels[announcement.category]}
                 </span>
               }
+              onClick={() => handleCardClick(announcement)}
             />
           ))}
         </div>
@@ -133,6 +129,22 @@ export function AnnouncementsSection({
           </div>
         )}
       </div>
+
+      {selectedAnnouncement && (
+        <Modal
+          isOpen={!!selectedAnnouncement}
+          onClose={handleCloseModal}
+          title={selectedAnnouncement.title}
+          date={selectedAnnouncement.date}
+          category={{
+            label: categoryLabels[selectedAnnouncement.category],
+            className: categoryColors[selectedAnnouncement.category],
+          }}
+          content={
+            selectedAnnouncement.content || selectedAnnouncement.description
+          }
+        />
+      )}
     </section>
   );
 }

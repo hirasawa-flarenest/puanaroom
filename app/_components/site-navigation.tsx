@@ -2,11 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-
-export interface NavigationItem {
-  id: string;
-  title: string;
-}
+import type { NavigationItem } from "@/lib/types";
 
 interface SiteNavigationProps {
   items: NavigationItem[];

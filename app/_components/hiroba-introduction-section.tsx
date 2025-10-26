@@ -1,27 +1,8 @@
 import Image from "next/image";
+import type { HirobaIntroductionProps } from "@/lib/types";
+import { Carousel, CarouselItem } from "./carousel";
 
-export interface StaffMember {
-  name: string;
-  role: string;
-  image: string;
-  description?: string;
-}
-
-export interface FacilityPhoto {
-  src: string;
-  alt: string;
-  label: string;
-}
-
-export interface HirobaIntroductionProps {
-  concept: {
-    title: string;
-    description: string;
-  };
-  staff: StaffMember[];
-  facilityPhotos: FacilityPhoto[];
-  mapImage: string;
-}
+export type { HirobaIntroductionProps };
 
 export function HirobaIntroductionSection({
   concept,
@@ -41,10 +22,10 @@ export function HirobaIntroductionSection({
         {/* スタッフ紹介 */}
         <div className="hiroba-introduction__staff">
           <h3 className="hiroba-introduction__subtitle">スタッフ紹介</h3>
-          <div className="hiroba-introduction__staff-scroll">
-            <div className="hiroba-introduction__staff-list">
-              {staff.map((member, index) => (
-                <div key={index} className="staff-card">
+          <Carousel itemWidth={280}>
+            {staff.map((member, index) => (
+              <CarouselItem key={index}>
+                <div className="staff-card">
                   <div className="staff-card__image-wrapper">
                     <Image
                       src={member.image}
@@ -64,18 +45,18 @@ export function HirobaIntroductionSection({
                     )}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              </CarouselItem>
+            ))}
+          </Carousel>
         </div>
 
         {/* 施設案内 */}
         <div className="hiroba-introduction__facility">
           <h3 className="hiroba-introduction__subtitle">施設案内</h3>
-          <div className="hiroba-introduction__facility-scroll">
-            <div className="hiroba-introduction__facility-list">
-              {facilityPhotos.map((photo, index) => (
-                <div key={index} className="facility-photo-item">
+          <Carousel itemWidth={280}>
+            {facilityPhotos.map((photo, index) => (
+              <CarouselItem key={index}>
+                <div className="facility-photo-item">
                   <div className="facility-photo-item__image-wrapper">
                     <Image
                       src={photo.src}
@@ -87,9 +68,9 @@ export function HirobaIntroductionSection({
                   </div>
                   <p className="facility-photo-item__label">{photo.label}</p>
                 </div>
-              ))}
-            </div>
-          </div>
+              </CarouselItem>
+            ))}
+          </Carousel>
 
           {/* 地図 */}
           <div className="hiroba-introduction__map-section">

@@ -1,63 +1,9 @@
-export interface FacilityInfoSectionProps {
-  id?: string;
-  title: string;
-  subtitle: string;
-  targetUsers?: string[];
-  businessHours?: {
-    weekdays: string;
-    weekends?: string;
-    holidays: string;
-  };
-  access?: {
-    address: string;
-    nearestStations?: Array<{
-      name: string;
-      walkingTime: string;
-    }>;
-    parking?: {
-      onsite: boolean;
-      nearby: boolean;
-    };
-    bicycleParking?: boolean;
-    strollerParking?: boolean;
-    googleMapUrl?: string;
-    googleMapsAppUrl?: string;
-  };
-  openingHours?: {
-    weekdays?: string;
-    saturday?: string;
-    holidays?: string;
-  };
-  pricing?: {
-    membershipFee?: {
-      price: string;
-      note: string;
-    };
-    usageFee?: {
-      member: string;
-      nonMember: string;
-    };
-    freePass?: {
-      price: string;
-      note: string;
-    };
-    ticketBook?: {
-      price: string;
-      note: string;
-    };
-  };
-  noReservationText?: string;
-  welcomeText?: string;
-  location?: {
-    postalCode: string;
-    address: string;
-  };
-  phoneNumber?: string;
-  phoneNumberDisplay?: string;
-  instagramUrl?: string;
-  instagramHandle?: string;
-  notes?: string[];
-}
+"use client";
+
+import { useState } from "react";
+import type { FacilityInfoSectionProps } from "@/lib/types";
+
+export type { FacilityInfoSectionProps };
 
 export function FacilityInfoSection({
   id,
@@ -77,6 +23,69 @@ export function FacilityInfoSection({
   instagramHandle,
   notes,
 }: FacilityInfoSectionProps) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyAddress = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    // デフォルト動作を防止
+    e.preventDefault();
+    e.stopPropagation();
+
+    // スクロール位置を保存
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
+
+    // ボタンからフォーカスを外す
+    e.currentTarget.blur();
+
+    if (!access?.address) return;
+
+    try {
+      // Modern clipboard API (優先)
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(access.address);
+        // スクロール位置を確実に維持
+        window.scrollTo(scrollX, scrollY);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        return;
+      }
+
+      // フォールバック: テキスト選択とコピー
+      const textArea = document.createElement("textarea");
+      textArea.value = access.address;
+      textArea.style.position = "fixed";
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.opacity = "0";
+      textArea.style.pointerEvents = "none";
+      textArea.setAttribute("readonly", "");
+      document.body.appendChild(textArea);
+      textArea.focus({ preventScroll: true });
+      textArea.select();
+
+      const successful = document.execCommand("copy");
+      document.body.removeChild(textArea);
+
+      // スクロール位置を復元
+      window.scrollTo(scrollX, scrollY);
+
+      if (successful) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        throw new Error("Copy command was unsuccessful");
+      }
+    } catch (err) {
+      console.error("Failed to copy address:", err);
+      // スクロール位置を復元
+      window.scrollTo(scrollX, scrollY);
+      // エラーが発生しても視覚的フィードバックを表示
+      alert(`住所をコピー: ${access.address}`);
+    }
+  };
+
   return (
     <section id={id} className="common-section facility-info-section">
       <div className="common-section__inner">
@@ -223,7 +232,51 @@ export function FacilityInfoSection({
             {/* 住所 */}
             <div className="access-address-box">
               <div className="access-address-label">住所</div>
-              <div className="access-address-value">{access.address}</div>
+              <button
+                className="access-address-value access-address-value--copyable"
+                onClick={handleCopyAddress}
+                type="button"
+                title="クリックして住所をコピー"
+              >
+                <span className="access-address-text">{access.address}</span>
+                <span className="access-address-copy-icon">
+                  {copied ? (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-label="コピー完了"
+                    >
+                      <polyline points="4 8 7 11 12 5" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-label="コピーする"
+                    >
+                      <rect x="4" y="4" width="8" height="10" rx="1" />
+                      <path d="M6 4V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v8" />
+                    </svg>
+                  )}
+                </span>
+                {copied && (
+                  <span className="access-address-copied-message">
+                    コピーしました
+                  </span>
+                )}
+              </button>
             </div>
 
             {/* 地図 */}

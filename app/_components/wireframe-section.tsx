@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { WireframeGroupProps } from "@/lib/types";
 
 export interface WireframeSectionProps {
   id: string;
@@ -28,17 +29,7 @@ export function WireframeSection({
   );
 }
 
-export interface WireframeListItem {
-  label: string;
-  description?: string;
-  note?: string;
-}
-
-export interface WireframeGroupProps {
-  title?: string;
-  description?: string;
-  items: WireframeListItem[];
-}
+export type { WireframeGroupProps };
 
 export function WireframeGroup({
   title,

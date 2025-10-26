@@ -1,14 +1,5 @@
 import Image from "next/image";
-
-export interface ContactMethod {
-  type: "phone" | "line";
-  title: string;
-  description: string;
-  link: string;
-  linkText: string;
-  hours?: string;
-  icon?: string;
-}
+import type { ContactMethod } from "@/lib/types";
 
 export interface ContactSectionProps {
   id?: string;

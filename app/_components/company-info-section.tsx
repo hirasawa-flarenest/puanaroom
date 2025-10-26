@@ -1,21 +1,7 @@
-export interface AccessInfo {
-  station: string;
-  walkingTime: string;
-}
+import type { CompanyInfo } from "@/lib/types";
 
-export interface CompanyInfoSectionProps {
+export interface CompanyInfoSectionProps extends CompanyInfo {
   id?: string;
-  title: string;
-  subtitle: string;
-  companyName: string;
-  description: string;
-  postalCode: string;
-  address: string;
-  establishedYear: string;
-  phoneNumber?: string;
-  phoneNumberDisplay?: string;
-  businessHours?: string;
-  accessInfo?: AccessInfo[];
 }
 
 export function CompanyInfoSection({

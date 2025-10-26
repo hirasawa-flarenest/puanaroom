@@ -1,13 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-export interface MonthSchedule {
-  year: number;
-  month: number; // 1-12
-  imageUrl: string;
-  imageAlt?: string;
-}
+import { useState } from "react";
+import type { MonthSchedule } from "@/lib/types";
+import { useSlideAnimation } from "@/lib/hooks";
 
 export interface ScheduleCalendarSectionProps {
   id?: string;
@@ -33,14 +28,8 @@ export function ScheduleCalendarSection({
   const [displayMonth, setDisplayMonth] = useState(
     currentMonth ?? today.getMonth() + 1
   );
-  const [direction, setDirection] = useState<"left" | "right" | null>(null);
 
-  useEffect(() => {
-    if (direction) {
-      const timer = setTimeout(() => setDirection(null), 400);
-      return () => clearTimeout(timer);
-    }
-  }, [direction]);
+  const { direction, slideLeft, slideRight } = useSlideAnimation();
 
   // 現在表示中の月のスケジュールを取得
   const currentSchedule = schedules.find(
@@ -48,43 +37,53 @@ export function ScheduleCalendarSection({
       schedule.year === displayYear && schedule.month === displayMonth
   );
 
-  // 次月/前月にスケジュールがあるかチェック
-  const hasNextMonthSchedule = () => {
-    const nextYear = displayMonth === 12 ? displayYear + 1 : displayYear;
-    const nextMonth = displayMonth === 12 ? 1 : displayMonth + 1;
-    return schedules.some(
-      (schedule) => schedule.year === nextYear && schedule.month === nextMonth
-    );
+  // 現在の日付をタイムスタンプに変換（比較用）
+  const getCurrentTimestamp = (year: number, month: number) => {
+    return new Date(year, month - 1, 1).getTime();
   };
 
-  const hasPrevMonthSchedule = () => {
-    const prevYear = displayMonth === 1 ? displayYear - 1 : displayYear;
-    const prevMonth = displayMonth === 1 ? 12 : displayMonth - 1;
-    return schedules.some(
-      (schedule) => schedule.year === prevYear && schedule.month === prevMonth
-    );
+  const currentTimestamp = getCurrentTimestamp(displayYear, displayMonth);
+
+  // 次のスケジュールを見つける（現在より未来で最も近い月）
+  const findNextSchedule = () => {
+    return schedules
+      .filter((s) => getCurrentTimestamp(s.year, s.month) > currentTimestamp)
+      .sort(
+        (a, b) =>
+          getCurrentTimestamp(a.year, a.month) -
+          getCurrentTimestamp(b.year, b.month)
+      )[0];
   };
 
-  const goToNextMonth = () => {
-    if (!hasNextMonthSchedule()) return;
-    setDirection("left");
-    if (displayMonth === 12) {
-      setDisplayYear(displayYear + 1);
-      setDisplayMonth(1);
-    } else {
-      setDisplayMonth(displayMonth + 1);
-    }
+  // 前のスケジュールを見つける（現在より過去で最も近い月）
+  const findPrevSchedule = () => {
+    return schedules
+      .filter((s) => getCurrentTimestamp(s.year, s.month) < currentTimestamp)
+      .sort(
+        (a, b) =>
+          getCurrentTimestamp(b.year, b.month) -
+          getCurrentTimestamp(a.year, a.month)
+      )[0];
   };
 
-  const goToPrevMonth = () => {
-    if (!hasPrevMonthSchedule()) return;
-    setDirection("right");
-    if (displayMonth === 1) {
-      setDisplayYear(displayYear - 1);
-      setDisplayMonth(12);
-    } else {
-      setDisplayMonth(displayMonth - 1);
-    }
+  // 次/前のスケジュールが存在するかチェック
+  const hasNextSchedule = () => !!findNextSchedule();
+  const hasPrevSchedule = () => !!findPrevSchedule();
+
+  const goToNextSchedule = () => {
+    const nextSchedule = findNextSchedule();
+    if (!nextSchedule) return;
+    slideLeft();
+    setDisplayYear(nextSchedule.year);
+    setDisplayMonth(nextSchedule.month);
+  };
+
+  const goToPrevSchedule = () => {
+    const prevSchedule = findPrevSchedule();
+    if (!prevSchedule) return;
+    slideRight();
+    setDisplayYear(prevSchedule.year);
+    setDisplayMonth(prevSchedule.month);
   };
 
   const formatMonthDisplay = (year: number, month: number) => {
@@ -102,9 +101,9 @@ export function ScheduleCalendarSection({
         <div className="schedule-calendar-section__controls">
           <button
             className="schedule-calendar-section__nav-button"
-            onClick={goToPrevMonth}
-            disabled={!hasPrevMonthSchedule()}
-            aria-label="前月へ"
+            onClick={goToPrevSchedule}
+            disabled={!hasPrevSchedule()}
+            aria-label="前のスケジュールへ"
           >
             ← 前月
           </button>
@@ -113,9 +112,9 @@ export function ScheduleCalendarSection({
           </div>
           <button
             className="schedule-calendar-section__nav-button"
-            onClick={goToNextMonth}
-            disabled={!hasNextMonthSchedule()}
-            aria-label="次月へ"
+            onClick={goToNextSchedule}
+            disabled={!hasNextSchedule()}
+            aria-label="次のスケジュールへ"
           >
             次月 →
           </button>
@@ -144,8 +143,9 @@ export function ScheduleCalendarSection({
           ) : (
             <div className="schedule-calendar-section__no-data">
               <p>
-                {formatMonthDisplay(displayYear, displayMonth)}
-                のスケジュールは準備中です
+                {schedules.length === 0
+                  ? "現在スケジュールがありません"
+                  : `${formatMonthDisplay(displayYear, displayMonth)}のスケジュールは準備中です`}
               </p>
             </div>
           )}

@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Image from "next/image";
 
 export interface ContentCardProps {
   image?: string;
@@ -7,6 +8,7 @@ export interface ContentCardProps {
   title: string;
   description?: string;
   badge?: ReactNode;
+  onClick?: () => void;
 }
 
 export function ContentCard({
@@ -16,15 +18,37 @@ export function ContentCard({
   title,
   description,
   badge,
+  onClick,
 }: ContentCardProps) {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (onClick && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      onClick();
+    }
+  };
+
   return (
-    <article className="activity-card">
+    <article
+      className={`activity-card ${onClick ? "activity-card--clickable" : ""}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={onClick ? 0 : undefined}
+      role={onClick ? "button" : undefined}
+    >
       {image && (
         <div className="activity-card__image-wrapper">
-          <img
+          <Image
             src={image}
             alt={imageAlt || title}
             className="activity-card__image"
+            width={800}
+            height={600}
           />
         </div>
       )}
