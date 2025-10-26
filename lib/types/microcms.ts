@@ -21,7 +21,6 @@ export interface MicroCMSImage {
 // お知らせ
 export interface MicroCMSAnnouncement extends MicroCMSBase {
   title: string;
-  description: string; // 一覧表示用の要約
   content: string; // リッチエディタの本文（HTML）
   category: string[]; // セレクトフィールド（複数選択可能な配列形式）
 }

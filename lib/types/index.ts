@@ -32,8 +32,7 @@ export type AnnouncementCategory = "notice" | "event" | "closure" | "other";
 export interface Announcement {
   date: string;
   title: string;
-  description: string;
-  content?: string; // リッチテキスト本文（HTML）- microCMS用
+  content: string; // リッチテキスト本文（HTML）- microCMS用
   category: AnnouncementCategory;
   image?: string;
 }

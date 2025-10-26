@@ -44,7 +44,6 @@ export function mapMicroCMSAnnouncement(
   return {
     date: formatDate(data.publishedAt || data.createdAt),
     title: data.title,
-    description: data.description,
     content: data.content,
     category: mapCategoryName(data.category),
   };

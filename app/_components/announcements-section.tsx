@@ -86,7 +86,7 @@ export function AnnouncementsSection({
           {displayedAnnouncements.map((announcement, index) => (
             <ContentCard
               key={`${currentPage}-${index}`}
-              description={announcement.description}
+              description={announcement.content}
               date={announcement.date}
               title={announcement.title}
               badge={
@@ -140,9 +140,7 @@ export function AnnouncementsSection({
             label: categoryLabels[selectedAnnouncement.category],
             className: categoryColors[selectedAnnouncement.category],
           }}
-          content={
-            selectedAnnouncement.content || selectedAnnouncement.description
-          }
+          content={selectedAnnouncement.content}
         />
       )}
     </section>
