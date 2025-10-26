@@ -142,13 +142,14 @@ export function ActivitiesSection({
           onClose={handleCloseModal}
           title={selectedActivity.title}
           date={selectedActivity.date}
+          description={selectedActivity.description}
           image={selectedActivity.image ? {
             url: selectedActivity.image,
             alt: selectedActivity.title,
             width: 800,
             height: 600,
           } : undefined}
-          content={selectedActivity.content || selectedActivity.description}
+          content={selectedActivity.content || ""}
         />
       )}
     </section>
