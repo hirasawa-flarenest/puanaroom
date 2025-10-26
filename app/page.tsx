@@ -20,15 +20,15 @@ import {
   INSTAGRAM_URL,
   NAVIGATION_ITEMS,
   PHOTO_GALLERY_PHOTOS,
-  ACTIVITIES,
   SECTIONS,
   CONTACT_METHODS,
   COMPANY_INFO,
   HIROBA_INTRODUCTION,
   FACILITY_INFO,
 } from "@/lib/constants";
-import { getAnnouncements, getClosureNotice, getFAQs, getMonthSchedules } from "@/lib/api/microcms";
+import { getAnnouncements, getActivities, getClosureNotice, getFAQs, getMonthSchedules } from "@/lib/api/microcms";
 import { mapMicroCMSAnnouncements } from "@/lib/mappers/announcement";
+import { mapMicroCMSActivities } from "@/lib/mappers/activity";
 import { mapMicroCMSFAQs } from "@/lib/mappers/faq";
 import { mapMicroCMSMonthSchedules } from "@/lib/mappers/schedule";
 
@@ -36,6 +36,10 @@ export default async function HomePage() {
   // microCMSからお知らせデータを取得
   const announcementsData = await getAnnouncements({ limit: 10 });
   const announcements = mapMicroCMSAnnouncements(announcementsData.contents);
+
+  // microCMSから活動紹介データを取得
+  const activitiesData = await getActivities({ limit: 10 });
+  const activities = mapMicroCMSActivities(activitiesData.contents);
 
   // microCMSからヘッダーお知らせバナーを取得（公開されている場合のみ表示）
   let closureNotice = "";
@@ -229,7 +233,7 @@ export default async function HomePage() {
         <ActivitiesSection
           title="活動紹介"
           subtitle="ひろばで開催したイベントや日常の様子をご紹介します"
-          activities={ACTIVITIES}
+          activities={activities}
           itemsPerPage={3}
           instagramUrl={INSTAGRAM_URL}
         />

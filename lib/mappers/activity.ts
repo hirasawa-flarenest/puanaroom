@@ -25,7 +25,7 @@ export function mapMicroCMSActivity(data: MicroCMSActivity): Activity {
     title: data.title,
     description: data.description,
     content: data.content,
-    image: data.image.url,
+    image: data.image?.url || "",
   };
 }
 

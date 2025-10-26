@@ -29,10 +29,10 @@ export interface MicroCMSAnnouncement extends MicroCMSBase {
 // 活動紹介
 export interface MicroCMSActivity extends MicroCMSBase {
   title: string;
-  activityDate: string; // 活動日（表示用）
   description: string; // 一覧表示用の要約
+  activityDate: string; // 活動日（日時フィールド）
   content: string; // リッチエディタの本文（HTML）
-  image: MicroCMSImage;
+  image?: MicroCMSImage; // アイキャッチ画像（任意）
 }
 
 // 月間スケジュール
