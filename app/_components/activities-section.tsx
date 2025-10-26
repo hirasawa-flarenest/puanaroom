@@ -143,7 +143,7 @@ export function ActivitiesSection({
           title={selectedActivity.title}
           date={selectedActivity.date}
           dateLabel="活動日"
-          image={selectedActivity.image ? {
+          image={selectedActivity.image && selectedActivity.image.trim() !== "" ? {
             url: selectedActivity.image,
             alt: selectedActivity.title,
             width: 800,

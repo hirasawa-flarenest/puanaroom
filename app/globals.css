@@ -2966,7 +2966,6 @@ body.site-sidebar-open {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  margin-top: var(--space-md);
   margin-bottom: var(--space-md);
 }
 

@@ -109,10 +109,6 @@ export function Modal({
             )}
           </div>
 
-          <h2 id="modal-title" className="modal-title">
-            {title}
-          </h2>
-
           {date && (
             <time className="modal-date-wrapper">
               {dateLabel && (
@@ -121,6 +117,10 @@ export function Modal({
               <span className="modal-date">{date}</span>
             </time>
           )}
+
+          <h2 id="modal-title" className="modal-title">
+            {title}
+          </h2>
 
           {image && (
             <div className="modal-image">
