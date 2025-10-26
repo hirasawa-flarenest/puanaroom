@@ -35,10 +35,16 @@ export function ContentCard({
     }
   };
 
+  // HTMLタグを削除してテキストのみを抽出
+  const stripHtmlTags = (html: string): string => {
+    return html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+  };
+
   // descriptionを80文字で切り詰めて省略記号を追加
   const truncateDescription = (text: string, maxLength: number = 80) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + "...";
+    const plainText = stripHtmlTags(text);
+    if (plainText.length <= maxLength) return plainText;
+    return plainText.substring(0, maxLength) + "...";
   };
 
   return (
