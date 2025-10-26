@@ -68,6 +68,7 @@ body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
+  overflow-x: hidden;
   background-color: #f5f1ed;
   background-image: radial-gradient(
       circle at 20% 50%,
@@ -261,7 +262,7 @@ button {
 
 .site-nav-toggle {
   position: fixed;
-  top: calc(16px + env(safe-area-inset-top, 0px));
+  top: calc(12px + env(safe-area-inset-top, 0px));
   right: calc(16px + env(safe-area-inset-right, 0px));
   display: inline-flex;
   align-items: center;
@@ -276,6 +277,8 @@ button {
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 1200;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 .site-nav-toggle:hover {
@@ -966,7 +969,7 @@ body.site-sidebar-open {
 /* Instagram Fixed Link */
 .instagram-fixed-link {
   position: fixed;
-  top: calc(16px + env(safe-area-inset-top, 0px));
+  top: calc(12px + env(safe-area-inset-top, 0px));
   right: calc(76px + env(safe-area-inset-right, 0px));
   width: 52px;
   height: 52px;
@@ -979,6 +982,8 @@ body.site-sidebar-open {
   transition: all 0.3s ease;
   z-index: 1200;
   padding: 0;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 .instagram-fixed-link:hover {
