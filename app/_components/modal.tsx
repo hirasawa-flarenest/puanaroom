@@ -8,6 +8,7 @@ export interface ModalProps {
   onClose: () => void;
   title: string;
   date?: string;
+  dateLabel?: string;
   category?: {
     label: string;
     className: string;
@@ -26,6 +27,7 @@ export function Modal({
   onClose,
   title,
   date,
+  dateLabel,
   category,
   image,
   content,
@@ -100,7 +102,6 @@ export function Modal({
       >
         <div className="modal-body">
           <div className="modal-meta">
-            {date && <time className="modal-date">{date}</time>}
             {category && (
               <span className={`modal-category ${category.className}`}>
                 {category.label}
@@ -111,6 +112,15 @@ export function Modal({
           <h2 id="modal-title" className="modal-title">
             {title}
           </h2>
+
+          {date && (
+            <time className="modal-date-wrapper">
+              {dateLabel && (
+                <span className="modal-date-label">{dateLabel}</span>
+              )}
+              <span className="modal-date">{date}</span>
+            </time>
+          )}
 
           {image && (
             <div className="modal-image">

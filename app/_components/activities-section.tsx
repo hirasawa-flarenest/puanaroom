@@ -142,6 +142,7 @@ export function ActivitiesSection({
           onClose={handleCloseModal}
           title={selectedActivity.title}
           date={selectedActivity.date}
+          dateLabel="活動日"
           image={selectedActivity.image ? {
             url: selectedActivity.image,
             alt: selectedActivity.title,

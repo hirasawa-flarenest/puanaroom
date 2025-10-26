@@ -86,7 +86,6 @@ export function AnnouncementsSection({
           {displayedAnnouncements.map((announcement, index) => (
             <ContentCard
               key={`${currentPage}-${index}`}
-              description={announcement.content}
               date={announcement.date}
               title={announcement.title}
               badge={
