@@ -76,6 +76,7 @@ export function ActivitiesSection({
               image={activity.image}
               imageAlt={activity.title}
               date={activity.date}
+              dateLabel="活動日:"
               title={activity.title}
               description={activity.description}
               onClick={() => handleCardClick(activity)}
@@ -141,12 +142,12 @@ export function ActivitiesSection({
           onClose={handleCloseModal}
           title={selectedActivity.title}
           date={selectedActivity.date}
-          image={{
+          image={selectedActivity.image ? {
             url: selectedActivity.image,
             alt: selectedActivity.title,
             width: 800,
             height: 600,
-          }}
+          } : undefined}
           content={selectedActivity.content || selectedActivity.description}
         />
       )}

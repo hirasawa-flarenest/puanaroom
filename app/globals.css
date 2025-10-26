@@ -1287,6 +1287,16 @@ body.site-sidebar-open {
   font-weight: 700;
   color: var(--color-brand);
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.activity-card__date-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-muted);
+  letter-spacing: 0.03em;
 }
 
 .activity-card__title {
