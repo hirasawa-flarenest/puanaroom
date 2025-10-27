@@ -459,7 +459,9 @@ button {
 body.site-sidebar-open {
   overflow: hidden;
   position: fixed;
-  inset: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: 100%;
   touch-action: none;
   overscroll-behavior: contain;
@@ -3043,8 +3045,23 @@ body.site-sidebar-open {
   box-shadow: 0 4px 12px rgba(90, 74, 66, 0.08);
 }
 
+/* 画像が最初の要素の場合、モーダルの端から端まで表示 */
+.modal-body > .modal-image:first-child {
+  margin: calc(var(--space-xl) * -1) calc(var(--space-xl) * -1) var(--space-lg);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .modal-body > .modal-image:first-child {
+    margin: calc(var(--space-md) * -1) calc(var(--space-md) * -1) var(--space-md);
+  }
+}
+
 .modal-image img {
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 .modal-content {

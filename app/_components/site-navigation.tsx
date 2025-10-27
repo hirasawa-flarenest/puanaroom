@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import type { NavigationItem } from "@/lib/types";
+import { useScrollLock } from "@/lib/hooks";
 
 interface SiteNavigationProps {
   items: NavigationItem[];
@@ -20,6 +21,9 @@ export function SiteNavigation({ items, notice }: SiteNavigationProps) {
     setIsOpen((prev) => !prev);
   }, []);
 
+  // スクロールをロック
+  useScrollLock(isOpen);
+
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -30,13 +34,15 @@ export function SiteNavigation({ items, notice }: SiteNavigationProps) {
     if (isOpen) {
       document.addEventListener("keydown", handleKeydown);
       document.body.classList.add("site-sidebar-open");
-    } else {
-      document.body.classList.remove("site-sidebar-open");
+
+      return () => {
+        document.removeEventListener("keydown", handleKeydown);
+        document.body.classList.remove("site-sidebar-open");
+      };
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeydown);
-      document.body.classList.remove("site-sidebar-open");
     };
   }, [isOpen]);
 

@@ -78,7 +78,10 @@ export function FacilityInfoSection({
         throw new Error("Copy command was unsuccessful");
       }
     } catch (err) {
-      console.error("Failed to copy address:", err);
+      // 開発環境でのみエラー表示
+      if (process.env.NODE_ENV === "development") {
+        console.error("Failed to copy address:", err);
+      }
       // スクロール位置を復元
       window.scrollTo(scrollX, scrollY);
       // エラーが発生しても視覚的フィードバックを表示

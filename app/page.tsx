@@ -51,7 +51,10 @@ export default async function HomePage() {
     }
   } catch (error) {
     // エラー時は空文字列（バナー非表示）
-    console.error("Failed to fetch closure notice:", error);
+    // 開発環境でのみエラー表示
+    if (process.env.NODE_ENV === "development") {
+      console.error("Failed to fetch closure notice:", error);
+    }
   }
 
   // microCMSからよくあるご質問を取得

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useScrollLock } from "@/lib/hooks";
 
 export interface ModalProps {
   isOpen: boolean;
@@ -35,30 +36,17 @@ export function Modal({
   const modalRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
 
+  // スクロールをロック
+  useScrollLock(isOpen);
+
   // モーダルが開いたときの処理
   useEffect(() => {
     if (isOpen) {
       // 現在のアクティブ要素を保存
       previousActiveElement.current = document.activeElement as HTMLElement;
 
-      // bodyのスクロールを無効化（iOS対応を含む）
-      const scrollY = window.scrollY;
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = "100%";
-
       // モーダルにフォーカス
       modalRef.current?.focus();
-
-      return () => {
-        // bodyのスクロールを復元
-        document.body.style.overflow = "";
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.width = "";
-        window.scrollTo(0, scrollY);
-      };
     } else {
       // 以前のアクティブ要素にフォーカスを戻す
       previousActiveElement.current?.focus();
@@ -101,6 +89,19 @@ export function Modal({
         role="document"
       >
         <div className="modal-body">
+          {image && (
+            <div className="modal-image">
+              <Image
+                src={image.url}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                sizes="(max-width: 768px) 100vw, 800px"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          )}
+
           <div className="modal-meta">
             {category && (
               <span className={`modal-category ${category.className}`}>
@@ -121,19 +122,6 @@ export function Modal({
           <h2 id="modal-title" className="modal-title">
             {title}
           </h2>
-
-          {image && (
-            <div className="modal-image">
-              <Image
-                src={image.url}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                sizes="(max-width: 768px) 100vw, 800px"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-          )}
 
           <div
             className="modal-content"

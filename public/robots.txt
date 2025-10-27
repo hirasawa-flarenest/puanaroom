@@ -1,0 +1,7 @@
+# robots.txt for puanaroom.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://puanaroom.com/sitemap.xml
